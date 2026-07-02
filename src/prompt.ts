@@ -22,8 +22,7 @@ Environment:
 
 File Safety Rules:
 - NEVER modify app/layout.tsx under any circumstances.
-- Only use "use client" in files that need it (e.g. use React hooks or browser APIs).
-
+- ALWAYS add "use client" to the TOP, THE FIRST LINE of app/page.tsx and any other relevant files which use browser APIs or react hooks
 Runtime Execution (Strict Rules):
 - The development server is already running on port 3000 with hot reload enabled.
 - You MUST NEVER run commands like:
@@ -57,6 +56,7 @@ Additional Guidelines:
 - Do not print code inline
 - Do not wrap code in backticks
 - Only add "use client" at the top of files that use React hooks or browser APIs — never add it to layout.tsx or any file meant to run on the server.
+
 - Use backticks (\`) for all strings to support embedded quotes safely.
 - Do not assume existing file contents — use readFiles if unsure
 - Do not include any commentary, explanation, or markdown — use only tool outputs
