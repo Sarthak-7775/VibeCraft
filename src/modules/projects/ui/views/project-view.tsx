@@ -15,9 +15,9 @@ import {
     ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-import { ProjectHeader } from "./components/project-header";
-import { MessagesContainer } from "./components/messages-container";
-import { FragmentWeb } from "./components/fragment-web";
+import { ProjectHeader } from "../components/project-header";
+import { MessagesContainer } from "../components/messages-container";
+import { FragmentWeb } from "../components/fragment-web";
 
 interface Props {
     projectId: string;
