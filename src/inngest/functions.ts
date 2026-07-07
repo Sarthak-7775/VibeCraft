@@ -4,6 +4,7 @@ import { inngest } from "./client";
 import { createAgent, openai, createTool, createNetwork, type Tool, type Message, createState } from '@inngest/agent-kit';
 import { Sandbox } from "e2b";
 import { getSandbox, lastAssistantTextMessageContent, parseAgentOutput } from "./utils";
+import { SANDBOX_TIMEOUT } from "./types";
 import { FRAGMENT_TITLE_PROMPT, PROMPT, RESPONSE_PROMPT } from "@/prompt";
 import prisma from "@/lib/db";
 
@@ -19,6 +20,7 @@ export const codeAgentFunction = inngest.createFunction(
 
         const sandboxId = await step.run("get-sandbox-id", async () => {
             const sandbox = await Sandbox.create("sarthaks-default-team-c318/vibe-nextjs-sarthak-dev");
+            await sandbox.setTimeout(SANDBOX_TIMEOUT);
             return sandbox.sandboxId;
         });
 
@@ -32,6 +34,7 @@ export const codeAgentFunction = inngest.createFunction(
                 orderBy: {
                     createdAt: "desc", // TODO: Change to "asc" if AI does not understand what is the latest message
                 },
+                take: 5,
             });
 
             for (const message of messages) {
@@ -42,7 +45,7 @@ export const codeAgentFunction = inngest.createFunction(
                 })
             }
 
-            return formattedMessages;
+            return formattedMessages.reverse();
         });
 
         const state = createState<AgentState>(
