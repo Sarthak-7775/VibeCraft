@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { Suspense, useState } from "react";
 import { Fragment } from "@/generated/prisma/client";
-import { EyeIcon, CodeIcon, CrownIcon } from "lucide-react";
+import { EyeIcon, CodeIcon } from "lucide-react";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { Button } from "@/components/ui/button";
 import { UserControl } from "@/components/user-control";
@@ -36,24 +37,29 @@ export const ProjectView = ({ projectId }: Props) => {
                     minSize={20}
                     className="flex flex-col min-h-0"
                 >
-                    <Suspense fallback={<p>Loading project...</p>}>
-                        <ProjectHeader projectId={projectId} />
-                    </Suspense>
-                    <Suspense fallback={<p>Loading messages...</p>}>
-                        <MessagesContainer
-                            projectId={projectId}
-                            activeFragment={activeFragment}
-                            setActiveFragment={setActiveFragment}
-                        />
-                    </Suspense>
+                    <ErrorBoundary fallback={<p>Project header error</p>}>
+                        <Suspense fallback={<p>Loading project...</p>}>
+                            <ProjectHeader projectId={projectId} />
+                        </Suspense>
+                    </ErrorBoundary>
+                    <ErrorBoundary fallback={<p>Messages container error</p>}>
+                        <Suspense fallback={<p>Loading messages...</p>}>
+                            <MessagesContainer
+                                projectId={projectId}
+                                activeFragment={activeFragment}
+                                setActiveFragment={setActiveFragment}
+                            />
+                        </Suspense>
+                    </ErrorBoundary>
                 </ResizablePanel>
-                <ResizableHandle className="hover:bg-primary transition-colors" />                <ResizablePanel
+                <ResizableHandle className="hover:bg-primary transition-colors" />
+                <ResizablePanel
                     defaultSize={65}
                     minSize={50}
                 >
 
                     <Tabs
-                        className="h-full gap-y-0"
+                        className="h-full w-full flex flex-col gap-y-0"
                         defaultValue="preview"
                         value={tabState}
                         onValueChange={(value) => setTabState(value as "preview" | "code")}
@@ -68,18 +74,13 @@ export const ProjectView = ({ projectId }: Props) => {
                                 </TabsTrigger>
                             </TabsList>
                             <div className="ml-auto flex items-center gap-x-2">
-                                <Button asChild size="sm" variant="tertiary">
-                                    <Link href="/pricing">
-                                        <CrownIcon /> Upgrade
-                                    </Link>
-                                </Button>
                                 <UserControl />
                             </div>
                         </div>
-                        <TabsContent value="preview">
+                        <TabsContent value="preview" className="flex-1 w-full h-full min-h-0">
                             {!!activeFragment && <FragmentWeb data={activeFragment} />}
                         </TabsContent>
-                        <TabsContent value="code" className="min-h-0">
+                        <TabsContent value="code" className="flex-1 w-full h-full min-h-0">
                             {!!activeFragment?.files && (
                                 <FileExplorer
                                     files={activeFragment.files as { [path: string]: string }}
