@@ -252,7 +252,7 @@ export const codeAgentFunction = inngest.createFunction(
 
         const sandboxUrl = await step.run("get-sandbox-url", async () => {
             const sandbox = await getSandbox(sandboxId);
-            await sandbox.commands.run("npm run dev", { background: true });
+            await sandbox.commands.run("npm run dev -- -H 0.0.0.0", { background: true });
             const host = sandbox.getHost(3000);
             return `https://${host}`;
         });
