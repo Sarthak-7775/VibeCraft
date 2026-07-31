@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vibecraft
+
+Vibecraft is an AI-powered code generation and prototyping platform. It leverages a multi-agent system to interpret user requests, generate fully functional Next.js application components, and iterate on them in a secure, sandboxed environment. Acting as an autonomous software engineer, Vibecraft can build, refine, and instantly preview full-stack React features, complete with styling and interactivity.
+
+## What it does
+
+- **AI-Driven Code Generation**: Utilizes Large Language Models (via Groq) to understand complex user requirements and translate them into production-ready Next.js code.
+- **Sandboxed Execution**: Employs E2B Code Interpreter to safely execute, test, and render generated code in isolated environments.
+- **Multi-Agent Workflow**: Uses Inngest to orchestrate background jobs and autonomous agents that work together to plan, write, and verify code.
+- **Modern Stack Prototypes**: Automatically provisions Next.js 15, React 19, and Tailwind CSS templates, utilizing Shadcn UI components for polished, accessible designs.
+
+## Technologies Used
+
+This project is built with the following cutting-edge technologies:
+
+- **Framework**: [Next.js 15](https://nextjs.org) (App Router)
+- **UI Library**: [React 19](https://react.dev)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) & [Shadcn UI](https://ui.shadcn.com/)
+- **Database & ORM**: [PostgreSQL](https://postgresql.org) with [Prisma](https://www.prisma.io/)
+- **API & State Management**: [tRPC](https://trpc.io/) & [TanStack React Query](https://tanstack.com/query/latest)
+- **Authentication**: [Clerk](https://clerk.com/)
+- **Background Jobs & Agent Orchestration**: [Inngest](https://www.inngest.com/)
+- **Sandboxed Code Execution**: [E2B Code Interpreter](https://e2b.dev/)
+- **AI Integration**: [Groq SDK](https://groq.com/) for fast LLM inference
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.

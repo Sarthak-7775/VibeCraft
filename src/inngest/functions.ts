@@ -1,4 +1,7 @@
 // src/inngest/functions.ts
+import { config } from 'dotenv';
+config();
+
 import { z } from 'zod';
 import { inngest } from "./client";
 import { createAgent, openai, createTool, createNetwork, type Tool, type Message, createState } from '@inngest/agent-kit';
@@ -7,7 +10,6 @@ import { getSandbox, lastAssistantTextMessageContent, parseAgentOutput } from ".
 import { SANDBOX_TIMEOUT } from "./types";
 import { FRAGMENT_TITLE_PROMPT, PROMPT, RESPONSE_PROMPT } from "@/prompt";
 import prisma from "@/lib/db";
-
 
 interface AgentState {
     summary: string;
@@ -62,10 +64,16 @@ export const codeAgentFunction = inngest.createFunction(
             name: 'Code writer',
             system: PROMPT,
             model: openai({
-                model: "llama-3.3-70b-versatile",
-                apiKey: process.env.XAI_API_KEY, // since your gsk_ key is here
-                baseUrl: "https://api.groq.com/openai/v1",
+                model: "gpt-4o",
+                apiKey: process.env.OPENAI_API_KEY,
+                baseUrl: "https://api.openai.com/v1/",
+                defaultParameters: { temperature: 0.5 },
             }),
+            // model: openai({
+            //     model: "llama-3.3-70b-versatile",
+            //     apiKey: process.env.XAI_API_KEY, // since your gsk_ key is here
+            //     baseUrl: "https://api.groq.com/openai/v1",
+            // }),
             // model: gemini({
             //     model: "gemini-1.5-pro",
             //     apiKey: process.env.GEMINI_API_KEY,
